@@ -22,4 +22,13 @@ def mostrar_contatos():
 
         print("___________________")
 
-mostrar_contatos()
+
+def buscar_contato(contato):
+    print("Nome:", contato)
+    print("Telefone:",AGENDA[contato]["telefone"]) 
+    print("E-mail:",AGENDA[contato]["email"]) 
+    print("Endereço:",AGENDA[contato]["endereco"]) 
+
+
+#mostrar_contatos()
+buscar_contato("Patricia")
