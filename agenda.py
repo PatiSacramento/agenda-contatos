@@ -38,8 +38,16 @@ def incluir_editar_contato(contato, telefone, email, endereco):
     mostrar_contatos()
 
 
+def excluir_contato(contato):
+    AGENDA.pop(contato)
+    print("Contato {} removido com sucesso!".format(contato))
+    print("___________________")
+    mostrar_contatos()
+
+
 #mostrar_contatos()
 #buscar_contato("Patricia")
-incluir_editar_contato("Claudia", "99999-7777", "claudia@email.com", "av.2")
-incluir_editar_contato("Patricia", "99999-6666", "patricia@email.com", "av.1")
-incluir_editar_contato("Nelson", "99999-5555", "", None)
+#incluir_editar_contato("Claudia", "99999-7777", "claudia@email.com", "av.2")
+#incluir_editar_contato("Patricia", "99999-6666", "patricia@email.com", "av.1")
+#incluir_editar_contato("Nelson", "99999-5555", "", None)
+excluir_contato("Patricia")
