@@ -45,9 +45,37 @@ def excluir_contato(contato):
     mostrar_contatos()
 
 
-#mostrar_contatos()
-#buscar_contato("Patricia")
-#incluir_editar_contato("Claudia", "99999-7777", "claudia@email.com", "av.2")
-#incluir_editar_contato("Patricia", "99999-6666", "patricia@email.com", "av.1")
-#incluir_editar_contato("Nelson", "99999-5555", "", None)
-excluir_contato("Patricia")
+def imprimir_menu():
+    print("___________________")
+    print("1 - Mostrar todos os contatos da agenda")
+    print("2 - Buscar contato")
+    print("3 - Incluir contato")
+    print("4 - Editar contato")
+    print("5 - Excluir contato")
+    print("0 - Fechar agenda")
+    print("___________________")
+
+
+while True:
+    imprimir_menu()
+
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        mostrar_contatos()
+    elif opcao == "2":
+        contato = input("Digite o nome do contato: ")
+        buscar_contato(contato)
+    elif opcao == "3" or opcao == "4":
+        contato = input("Digite o nome do contato: ")
+        telefone = input("Digite o telefone do contato: ")
+        email = input("Digite o email do contato: ")
+        endereco = input("Digite o endereco do contato: ")
+        incluir_editar_contato(contato, telefone, email, endereco)
+    elif opcao == "5":
+        contato = input("Digite o nome do contato a ser deletado: ")
+        excluir_contato(contato)
+    elif opcao == "0":
+        break
+    else:
+        print("Opção inválida")
