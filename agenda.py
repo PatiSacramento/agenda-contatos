@@ -66,9 +66,9 @@ def excluir_contato(contato):
         print(error)
 
 
-def exportar_contatos():
+def exportar_contatos(nome_arquivo):
     try:
-        with open("contatos.csv", "w") as arquivo:
+        with open(nome_arquivo, "w") as arquivo:
             for contato in AGENDA:
                 telefone = AGENDA[contato]["telefone"]
                 email = AGENDA[contato]["email"]
@@ -85,7 +85,7 @@ def importar_contato(nome_arquivo):
             linhas = arquivo.readlines() #retorna lista
             for linha in linhas:
                 detalhes = linha.strip().split(",")
-                
+
                 nome = detalhes[0]
                 telefone = detalhes[1]
                 email = detalhes[2]
@@ -145,7 +145,8 @@ while True:
         contato = input("Digite o nome do contato a ser deletado: ")
         excluir_contato(contato)
     elif opcao == "6":
-        exportar_contatos()
+        nome_arquivo = input("Digite o nome do arquivo a ser exportado:")
+        exportar_contatos(nome_arquivo)
     elif opcao == "7":
         nome_arquivo = input("Digite o nome do arquivo a ser importado:")
         importar_contato(nome_arquivo)
