@@ -35,11 +35,14 @@ def buscar_contato(contato):
         print(error)
 
 
-def incluir_editar_contato(contato ):
+def ler_detalhes_contato():
     telefone = input("Digite o telefone do contato: ")
     email = input("Digite o email do contato: ")
     endereco = input("Digite o endereco do contato: ")
+    return telefone, email, endereco
 
+
+def incluir_editar_contato(contato, telefone, email, endereco):
     AGENDA[contato] = {
         "telefone": telefone,
         "email": email,
@@ -70,7 +73,7 @@ def exportar_contatos():
                 telefone = AGENDA[contato]["telefone"]
                 email = AGENDA[contato]["email"]
                 endereco = AGENDA[contato]["endereco"]
-                arquivo.write("{}, {}, {}, {}, \n".format(contato, telefone, email, endereco))
+                arquivo.write("{}, {}, {}, {} \n".format(contato, telefone, email, endereco))
         print("Agenda exportada com sucesso")
     except:
         print("Erro ao exportar contatos")
@@ -105,13 +108,15 @@ while True:
             print("Contato já existe")
             continue
         except:
-            incluir_editar_contato(contato)
+            telefone, email, endereco = ler_detalhes_contato()
+            incluir_editar_contato(contato, telefone, email, endereco)
     elif opcao == "4":
         contato = input("Digite o nome do contato: ")
         try: 
             AGENDA[contato]
             print("Editando contato:", contato)
-            incluir_editar_contato(contato)
+            telefone, email, endereco = ler_detalhes_contato()
+            incluir_editar_contato(contato, telefone, email, endereco)
         except:
             print("Contato inexistente")
            
