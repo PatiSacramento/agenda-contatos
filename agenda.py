@@ -1,18 +1,5 @@
 AGENDA = {}
 
-AGENDA["Patricia"] = {
-    "telefone":"99999-9999",
-    "email": "patricia@email.com",
-    "endereco": "av. 1",    
-}
-
-AGENDA["Iago"] = {
-    "telefone":"99999-8888",
-    "email": "iago@email.com",
-    "endereco": "av. 1",    
-}
-
-
 def mostrar_contatos():
     if AGENDA:
         for contato in AGENDA:
@@ -48,14 +35,16 @@ def incluir_editar_contato(contato, telefone, email, endereco):
         "email": email,
         "endereco": endereco,
     }
+    salvar()
     print("Contato {} adicionado/editado com sucesso!".format(contato))
     print("___________________")
-    mostrar_contatos()
+    
 
 
 def excluir_contato(contato):
     try:
         AGENDA.pop(contato)
+        salvar()
         print("Contato {} removido com sucesso!".format(contato))
         print("___________________")
         mostrar_contatos()
@@ -79,7 +68,7 @@ def exportar_contatos(nome_arquivo):
         print("Erro ao exportar contatos")
 
 
-def importar_contato(nome_arquivo):
+def importar_contatos(nome_arquivo):
     try:
         with open(nome_arquivo, "r") as arquivo:
             linhas = arquivo.readlines() #retorna lista
@@ -99,6 +88,31 @@ def importar_contato(nome_arquivo):
         print(error)
 
 
+def salvar():
+    exportar_contatos("database.csv")
+
+
+def carregar():
+        try:
+            with open("database.csv", "r") as arquivo:
+                linhas = arquivo.readlines() #retorna lista
+                for linha in linhas:
+                    detalhes = linha.strip().split(",")
+
+                    AGENDA[detalhes[0]] = {
+                        "telefone": detalhes[1],
+                        "email": detalhes[2],
+                        "endereco": detalhes[3],
+                    }
+            print("Database carregado com sucesso")
+            print("{} contatos carregados".format(len(AGENDA)))
+        except FileNotFoundError:
+            print("Arquivo não encontrado")
+        except Exception as error:
+            print("Algum erro inesperado ocorreu")
+            print(error)
+
+
 def imprimir_menu():
     print()
     print("1 - Mostrar todos os contatos da agenda")
@@ -111,7 +125,7 @@ def imprimir_menu():
     print("0 - Fechar agenda")
     print("___________________")
 
-
+carregar()
 while True:
     imprimir_menu()
 
@@ -149,7 +163,7 @@ while True:
         exportar_contatos(nome_arquivo)
     elif opcao == "7":
         nome_arquivo = input("Digite o nome do arquivo a ser importado:")
-        importar_contato(nome_arquivo)
+        importar_contatos(nome_arquivo)
     elif opcao == "0":
         break
     else:
