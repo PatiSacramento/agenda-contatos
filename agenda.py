@@ -65,12 +65,12 @@ def excluir_contato(contato):
 
 def exportar_contatos():
     try:
-        with open("contatos.txt", "w") as arquivo:
+        with open("contatos.csv", "w") as arquivo:
             for contato in AGENDA:
                 telefone = AGENDA[contato]["telefone"]
                 email = AGENDA[contato]["email"]
                 endereco = AGENDA[contato]["endereco"]
-                arquivo.write("{}; {}; {}; {}; \n".format(contato, telefone, email, endereco))
+                arquivo.write("{}, {}, {}, {}, \n".format(contato, telefone, email, endereco))
         print("Agenda exportada com sucesso")
     except:
         print("Erro ao exportar contatos")
