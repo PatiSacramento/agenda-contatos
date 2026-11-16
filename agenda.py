@@ -79,6 +79,26 @@ def exportar_contatos():
         print("Erro ao exportar contatos")
 
 
+def importar_contato(nome_arquivo):
+    try:
+        with open(nome_arquivo, "r") as arquivo:
+            linhas = arquivo.readlines() #retorna lista
+            for linha in linhas:
+                detalhes = linha.strip().split(",")
+                
+                nome = detalhes[0]
+                telefone = detalhes[1]
+                email = detalhes[2]
+                endereco = detalhes[3]
+
+                incluir_editar_contato(nome, telefone, email, endereco)
+    except FileNotFoundError:
+        print("Arquivo não encontrado")
+    except Exception as error:
+        print("Algum erro inesperado ocorreu")
+        print(error)
+
+
 def imprimir_menu():
     print()
     print("1 - Mostrar todos os contatos da agenda")
@@ -87,6 +107,7 @@ def imprimir_menu():
     print("4 - Editar contato")
     print("5 - Excluir contato")
     print("6 - Exportar contatos para CSV")
+    print("7 - Importar contatos CSV")
     print("0 - Fechar agenda")
     print("___________________")
 
@@ -125,6 +146,9 @@ while True:
         excluir_contato(contato)
     elif opcao == "6":
         exportar_contatos()
+    elif opcao == "7":
+        nome_arquivo = input("Digite o nome do arquivo a ser importado:")
+        importar_contato(nome_arquivo)
     elif opcao == "0":
         break
     else:
